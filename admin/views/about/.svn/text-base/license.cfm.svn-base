@@ -1,0 +1,9 @@
+<!---
+||MELDGALLERYLICENSE||
+--->
+<cfoutput>
+<div id="meld-body">
+	<h3>Meld Gallery License</h3>
+	<cfinclude template="/#rc.pluginConfig.getPackage()#/license.cfm">
+</div>
+</cfoutput>

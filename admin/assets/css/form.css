@@ -1,0 +1,340 @@
+/*
+<!---
+This file is part of the The Meld Google Sitemaps Plugin.
+
+The Meld Google Sitemaps Plugin is licensed under the GPL 2.0 license
+Copyright (C) 2010 Meld Solutions Inc. http://www.meldsolutions.com/
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation, version 2 of that license..
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+--->
+*/
+/* @start meld-form
+============================================================================================= */
+.meld-form {
+	width: 800px;
+}
+.meld-form input {
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-size: 9pt;
+	border: 1px solid #666;	
+}
+.meld-form select {
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-size: 9pt;
+	margin: 0 !important;
+	border: 1px solid #666;
+	padding: 0 0 0 2px;
+}
+.meld-form input.submit {
+	background-color: #ccc;
+	border: 1px solid #ccc;
+	padding: 1px 5px;
+	color: #333;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-box-shadow: 1px 1px 2px #333;
+	-webkit-box-shadow: 1px 1px 2px #333;
+}
+.meld-form .submit:hover {
+}
+.meld-form .submit:active {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.meld-form label {
+	display: block;
+	margin: 15px 5px 4px 0;
+	clear: none;
+	font-size: 1.1em;
+}
+.meld-form div.first label {
+	display: block;
+	margin: 0px 0 4px 0;
+	clear: none;
+}
+.meld-form input {
+	margin: 0 !important;
+	clear: both;
+}
+.meld-form div.checkbox {
+	display: block;
+	margin: 15px 0 5px;
+	padding: 0;
+	height: 10px;
+	clear: both;
+}
+.meld-form div.first.checkbox {
+	margin: 0px 0 5px 0;
+}
+.meld-form div.checkbox input {
+	height: 18px;
+	margin: 0 5px 5px 0;
+	float: left;
+}
+.meld-form div.checkbox label {
+	margin: 0;
+	padding: 0;
+	float: left;
+	font-weight: bold;
+}
+.meld-form fieldset {
+	margin: 20px 0 0 0;
+	background: #fff;
+	border: 1px solid #eee;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+.meld-form fieldset.first {
+	margin: 0;
+}
+.meld-form .showhide {
+	display: none;
+}
+.meld-form ul.form {
+	width: 100%;
+	clear: both;	
+	margin: 0;
+	padding: 0;
+}
+.meld-form ul.form li {
+	clear: both;	
+	margin: 0;
+	padding: 10px 0 15px 0;
+	border-bottom: 1px dotted #333;
+}
+.meld-form ul.form li p {
+	margin: 0;
+}
+.meld-form ul.form li.first {
+}
+.meld-form ul.form li.last {
+	border-bottom: 0;
+}
+.meld-form ul.form li.children {
+	clear: both;	
+	margin: -5px 0 0 0;
+	padding: 0;
+}
+.meld-form ul.form li ul {
+	padding: 0;
+	margin: 0;
+}
+.meld-form ul.form li label {
+	display: block;
+	width: 100%;	
+	margin: 0 0 3px 0;
+}
+.meld-form ul.form li.indented {
+	float: left;
+	width: 90%;	
+	padding: 0 0 0 15px;
+	border: 2px solid green;
+}
+.meld-form ul.form,.meld-form ul.form ul,.meld-form ul.form ul ul {
+	display: block;
+	list-style: none;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.meld-form ul.form ul.colTwo,.meld-form ul.form ul.colThree {
+	padding: 5px 0 0 0;
+}
+.meld-form ul.odd {
+	background-color: #fafafa;
+}
+.meld-form ul.form ul.colTwo li,.meld-form ul.form ul.colThree li {
+	margin: 0 0 1px 0;
+}
+.meld-form ul.form ul.colTwo li.left {
+	clear: none;	
+	display: block;
+	width: 49%;
+	float: left;
+	margin: 0 1% 0 0px;
+}
+.meld-form ul.form ul.colThree li.left {
+	clear: none;	
+	display: block;
+	width: 32%;
+	float: left;
+	margin: 0 0 0 1%;
+}
+.meld-form ul.form ul.colTwo li.right {
+	clear: none;	
+	display: block;
+	width: 49%;
+	float: right;
+	margin: 0 0 0 1%;
+}
+.meld-form ul.form ul.colOne li {
+	float: none !Important;
+	width: 100% !Important;
+}
+.meld-form ul.form input.text,.meld-form ul.form select,.meld-form ul.form textarea {
+	border: 1px solid #333;
+}
+.meld-form ul.form input.checkbox {
+	
+}
+.meld-form ul.form input.text {
+	width: 50%;
+	padding: 1px 0 1px 4px;
+}
+.meld-form ul.form input.text.medium {
+	width: 50%;
+}
+.meld-form ul.form input.text.short {
+	width: 20%;
+}
+.meld-form ul.form input.text.tiny {
+	width: 10% !important;
+}
+.meld-form ul.form input.text.long,input.text.long {
+	width: 90%;
+}
+.meld-form ul.form input.text.full,input.text.full {
+	width: 99%;
+}
+.meld-form ul.form textarea,.meld-form ul.form textarea.short {
+	width: 98%;
+	height: 5em;
+	padding: 3px;
+	font-size: 100% !important;
+}
+.meld-form ul.form textarea.medium {
+	width: 99%;
+	height: 10em;
+}
+.meld-form ul.form ul.colOne li {
+	display: block;
+}
+.meld-form ul.form ul.colTwo li {
+	width: 49%;	
+	padding-right: 7px;	
+	float: left;
+	clear: right;
+	display: block;
+}
+.meld-form ul.form ul.colThree li {
+	width: 33%;
+	padding-right: 1px;	
+	float: left;
+	clear: right;
+	display: block;
+}
+.meld-form ul.form li.checkbox {
+	padding: 0 0 5px 0;	
+}
+.meld-form ul.form li.inline {
+	padding: 0 0 5px 0;	
+}
+.meld-form ul.form li.checkbox.padded {
+	padding: 15px 0 5px 0;	
+}
+.meld-form ul.form li.inline input {
+	float: left;
+}
+.meld-form ul.form li.inline label {
+	width: auto;
+	float: left;
+	margin: 2px 10px 0 0;
+}
+.meld-form ul.form li.checkbox input {
+	float: left;
+	margin: 3px 3px 0 0;
+}
+.meld-form ul.form li.checkbox label {
+	display: inline;
+	width: 100%;
+	margin: 0 0 0 5px;	
+}
+.meld-form ul.form fieldset {
+	display: block;
+	padding: 0 20px 5px 20px;
+	margin: 0 0 5px 0px;
+	clear: both;
+	border: 1px solid #333;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+.meld-form ul.form fieldset.small {
+	width: 20%;
+}
+.meld-form ul.form fieldset.section {
+	display: block;
+	padding: 5px 5px 0 5px;
+	clear: both;
+	border: 1px solid #333;
+	background-color: #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+.meld-form ul.form fieldset li {
+}
+.meld-form ul.form legend {
+	display: block;
+	padding: 4px 8px 2px 8px;
+	margin: 3px 5px 5px 0px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	font-size: 100%;
+}
+.meld-form ul.form-buttons {
+	width: 800px;
+	border-top: 2px solid #333;
+	padding: 10px 0 0 0;
+	margin: 0;
+}
+.meld-form #msTabs ul.form-buttons {
+	margin: 0 0 0 20px;
+}
+.meld-form ul.form-buttons li {
+	display: block;
+	float: left;
+	padding: 0 10px 0 0;
+}
+.meld-form ul.form-buttons li.right {
+	float: right;
+	padding: 0 30px 0 0;
+}
+.meld-form ul.form span.tip, span.tip {
+	font-size: 80%;
+	background-color: #aaa;
+	padding: 0 4px;
+	margin: 0 0 0 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+.meld-form ul.form input.submit {
+	background-color: #ccc;
+	border: 1px solid #ccc;
+	padding: 1px 5px;
+	color: #333;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-box-shadow: 1px 1px 2px #333;
+	-webkit-box-shadow: 1px 1px 2px #333;
+}
+.meld-form ul.form .submit:hover {
+}
+.meld-form ul.form .submit:active {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+
+
+/* @end meld-form
+=================== */

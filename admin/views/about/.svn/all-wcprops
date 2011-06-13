@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/meld_meldgallery/!svn/ver/18/MeldGallery/admin/views/about
+END
+support.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/meld_meldgallery/!svn/ver/18/MeldGallery/admin/views/about/support.cfm
+END
+license.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/meld_meldgallery/!svn/ver/18/MeldGallery/admin/views/about/license.cfm
+END
+default.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/meld_meldgallery/!svn/ver/18/MeldGallery/admin/views/about/default.cfm
+END
+documentation.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/meld_meldgallery/!svn/ver/18/MeldGallery/admin/views/about/documentation.cfm
+END

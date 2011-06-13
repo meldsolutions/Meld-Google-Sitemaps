@@ -1,0 +1,9 @@
+<!---
+||MELDGALLERYLICENSE||
+--->
+<cfoutput>
+<div id="meld-body">
+	<h3>Meld Gallery Support</h3>
+	<p>Support tools, include FAQ and support forums, can be found at <a href="http://www.meldsolutions.com/go/products/meld-gallery/support/">http://www.meldsolutions.com/</a>.</p>
+</div>
+</cfoutput>
