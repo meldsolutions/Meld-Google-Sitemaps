@@ -43,12 +43,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfset sitemapsObject.setValue('TimeOfDay',sitemapsObject.getExtendedData().getAttribute('timeofday',true,'object') ) />
 		<cfset sitemapsObject.save() />
 
-		<cfif sitemapsObject.getValue('location') eq "site">
-			<cfset filename ="#expandPath("/" & rc.$.globalConfig('muraWRM'))##site#/sitemap.xml" /> 
-			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/#site#/sitemap.xml" /> 
-		<cfelse>
+		<cfif sitemapsObject.getValue('location') eq "web">
 			<cfset filename = "#expandPath("/" & rc.$.globalConfig('muraWRM'))#sitemap.xml" /> 
 			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/sitemap.xml" /> 
+		<cfelse>
+			<cfset filename ="#expandPath("/" & rc.$.globalConfig('muraWRM'))##site#/sitemap.xml" /> 
+			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/#site#/sitemap.xml" /> 
 		</cfif>
 
 		<cffile action="write" file="#filename#" output="#sitemapXML#" />

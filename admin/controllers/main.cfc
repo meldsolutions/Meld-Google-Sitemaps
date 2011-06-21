@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 		<cfset var pluginEvent 			= createObject("component","mura.MuraScope") />
 		<cfset var pluginManager		= rc.$.getBean('pluginManager') />
+		<cfset var sitemapsObject		= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleSitemaps",SiteID=rc.siteID)>
+
+		<cfset sitemapsObject.setID( rc.siteID ) />
+		<cfset rc.settings = sitemapsObject.getAllValues() />
 
 		<cfset pluginEvent= pluginEvent.init( StructNew() ).getEvent() />
 		<cfset pluginEvent.setValue('siteID',rc.siteID ) />

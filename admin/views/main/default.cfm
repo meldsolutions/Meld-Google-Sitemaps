@@ -10,6 +10,8 @@
 <h3>About Meld Google Sitemaps</h3>
 <p>Meld Google Sitemaps adds automated Google sitemap generation to your Mura CMS website.</p>
 
+<h3><strong>Status: </strong> <cfif structKeyExists(rc.settings,"enabled") and rc.settings.enabled eq true>Enabled<cfelse><div style="display: inline;color: ##800000;font-weight: bold">Auto-generation disabled</div></cfif></h3>
+
 <h4>Functionality</h4>
 <p>Meld Google Sitemaps automatically generates a Google sitemap.xml file by using the configuration information found under the &quot;Extended Attributes&quot; tab for a Mura page.
 These settings are:</p>
