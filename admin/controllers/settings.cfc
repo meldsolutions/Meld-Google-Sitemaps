@@ -51,7 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfset var sitemapsObject		= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleSitemaps",SiteID=rc.siteID)>
 		<cfset var processURL			= "http://#rc.$.siteConfig('domain')##rc.$.globalConfig('context')#/plugins/#rc.pluginConfig.getDirectory()#/?action=process:&site=#rc.siteID#" />
 		<cfset var timeOfDay			= createDateTime(2011,1,1,#rc.timeofday_hour#,#rc.timeofday_minute#,0) />
-		
+
+		<cfset sitemapsObject.setType("Custom")>
+		<cfset sitemapsObject.setSubType("MeldGoogleSitemaps")>
+		<cfset sitemapsObject.setSiteID(rc.siteID)>	
 		<cfset sitemapsObject.setID( rc.siteID ) />
 		<cfset sitemapsObject.getAllValues() />
 
@@ -90,15 +93,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 		<cfset var sitemapsObject	= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleSitemaps",SiteID=rc.siteID)>
 
+		<cfset sitemapsObject.setType("Custom")>
+		<cfset sitemapsObject.setSubType("MeldGoogleSitemaps")>
+		<cfset sitemapsObject.setSiteID(rc.siteID)>
+
 		<cfset sitemapsObject.setID( rc.siteID ) />
 		<cfset sitemapsObject.setModuleID( rc.pluginConfig.getModuleID() ) />
 
 		<cfset sitemapsObject.getAllValues() />
 
-		<cfif not len( sitemapsObject.getValue('Enabled') )>
+		<cfif not len( sitemapsObject.getValue('Enabled') ) or not isDate(sitemapsObject.getValue('TimeOfDay'))>
 			<cfset sitemapsObject.setValue('Location','site' ) />
 			<cfset sitemapsObject.setValue('Frequency','Weekly') />
-			<cfset sitemapsObject.setValue('Enabled',0) />
+			<cfset sitemapsObject.setValue('Enabled',sitemapsObject.getValue('Enabled') eq 1) />
 			<cfset sitemapsObject.setValue('Email',rc.$.siteConfig('contactEmail')) />
 			<cfset sitemapsObject.setValue('DateLastCreate',createODBCDateTime(dateAdd('yyyy',-10,now()))) />
 			<cfset sitemapsObject.setValue('TimeOfDay',createDateTime(2011,1,1,2,0,0) ) />

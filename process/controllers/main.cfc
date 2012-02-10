@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<!--- extend object issue, must set this --->
 		<cfset sitemapsObject.setValue('TimeOfDay',sitemapsObject.getExtendedData().getAttribute('timeofday',true,'object') ) />
 		<cfset sitemapsObject.save() />
-
+		
+		
 		<cfif sitemapsObject.getValue('location') eq "web">
 			<cfset filename = "#expandPath("/" & rc.$.globalConfig('muraWRM'))#sitemap.xml" /> 
 			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/sitemap.xml" /> 
@@ -50,9 +51,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			<cfset filename ="#expandPath("/" & rc.$.globalConfig('muraWRM'))##site#/sitemap.xml" /> 
 			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/#site#/sitemap.xml" /> 
 		</cfif>
-
-		<cffile action="write" file="#filename#" output="#sitemapXML#" />
-		
+		<cftry>
+			<cffile action="write" file="#filename#" output="#sitemapXML#" />
+		<cfcatch>
+			<cfif sitemapsObject.getValue('location') eq "web">
+				<cfset filename = expandPath("../../sitemap.xml") /> 
+			<cfelse>
+				<cfset filename = expandPath("../../#site#/sitemap.xml") /> 
+			</cfif>
+			<cffile action="write" file="#filename#" output="#sitemapXML#" />
+		</cfcatch>
+		</cftry>
 		<cfif len( sitemapsObject.getValue('Email') )>
 			<cfsavecontent variable="msg"><cfoutput>
 <p>Google Sitemap for #siteConfig.getDomain()# - #site# complete.</p>

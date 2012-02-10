@@ -73,7 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<label for="email">
 			#rc.mmRBF.key('emailnotifications')#<a href="##" class="tooltip"><span>#rc.mmRBF.key('emailnotifications','tip')#</span>&nbsp;</a>
 		</label>
-		<input class="text" type="text" name="email" id="email" value="#form.email#" size="150" maxlength="150" required="false"/>
+		<input class="text" type="text" name="email" id="email" value="#form.email#" size="150" maxlength="150" data-required="false"/>
 		<p><small>#rc.mmRBF.key('emailnotifications','note')#</small></p>
 	</li>
 	</ul>
