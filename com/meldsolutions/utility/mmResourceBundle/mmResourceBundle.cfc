@@ -187,19 +187,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	</cffunction>
 	<cffunction name="getBaseRBLocale" access="public" returntype="string" output="false">
 		
-		<cfif not isDefined("session")>
-			<cfreturn "en">
-		</cfif>
-		
-		<cfif structKeyExists(session,"RB")>
-			<cfif session.rb eq "en_US">
+		<cftry>
+			<cfif not isDefined("session")>
 				<cfreturn "en">
-			<cfelse>
-				<cfreturn session.RB />
 			</cfif>
-		<cfelse>
-			<cfreturn variables.instance.BaseRBLocale />
-		</cfif>
+			
+			<cfif structKeyExists(session,"RB")>
+				<cfif session.rb eq "en_US">
+					<cfreturn "en">
+				<cfelse>
+					<cfreturn session.RB />
+				</cfif>
+			<cfelse>
+				<cfreturn variables.instance.BaseRBLocale />
+			</cfif>
+			
+			<cfcatch>
+				<cfreturn "en">
+			</cfcatch>
+		</cftry>
+		
 	</cffunction>
 
 	<cffunction name="setParentFactory" access="public" returntype="void" output="false">

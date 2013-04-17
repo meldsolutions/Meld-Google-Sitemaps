@@ -44,10 +44,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfset sitemapsObject.save() />
 
 		<cfif sitemapsObject.getValue('location') eq "web">
-			<cfset filename = "#expandPath("/" & application.configBean.getContext())#/sitemap.xml" />
+			<cfset filename = "#expandPath(application.configBean.getContext())#/sitemap.xml" />
 			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/sitemap.xml" />
 		<cfelse>
-			<cfset filename ="#expandPath("/" & application.configBean.getContext())#/#site#/sitemap.xml" />
+			<cfset filename ="#expandPath(application.configBean.getContext())#/#site#/sitemap.xml" />
 			<cfset fileURL	= "http://#siteConfig.getDomain()##rc.$.globalConfig().getContext()#/#site#/sitemap.xml" />
 		</cfif>
 		<cftry>

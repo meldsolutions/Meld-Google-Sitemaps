@@ -86,6 +86,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 					tclassextend.type = 'Page'
 				OR
 					tclassextend.type = 'Portal'
+				OR
+					tclassextend.type = 'Folder'
+				OR
+					tclassextend.type = 'Calendar'
+				OR
+					tclassextend.type = 'Gallery'
+				OR
+					tclassextend.type = 'File'
 				)
 			WHERE
 				tclassextendattributes.siteid = <cfqueryparam value="#useSiteID#" cfsqltype="cf_sql_varchar" maxlength="25">
@@ -126,9 +134,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				tcontent.siteid = <cfqueryparam value="#useSiteID#" cfsqltype="cf_sql_varchar" maxlength="25">
 			AND
 				(
-					tcontent.type = 'Page'
+					tclassextend.type = 'Page'
 				OR
-					tcontent.type = 'Portal'
+					tclassextend.type = 'Portal'
+				OR
+					tclassextend.type = 'Folder'
+				OR
+					tclassextend.type = 'Calendar'
+				OR
+					tclassextend.type = 'Gallery'
+				OR
+					tclassextend.type = 'File'
 				)
 			AND
 				tcontent.approved = 1
@@ -186,7 +202,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 			<cfif isExempt neq true>
 <cfsavecontent variable="strXMLBlock"><cfoutput>
-	<url><loc>http://#$.siteConfig().getDomain()##$.globalConfig().getContext()##$.getContentRenderer().getURLStem(useSiteID,qList.filename)#</loc><lastmod>#dateformat(lastupdate,"yyyy-mm-dd")#</lastmod><changefreq>#sValues.changefrequency#</changefreq><priority>#sValues.priority#</priority></url></cfoutput></cfsavecontent>
+	<url><loc>http://#$.getBean('settingsManager').getSite(arguments.siteID).getDomain()##$.globalConfig().getContext()##$.getContentRenderer().getURLStem(useSiteID,qList.filename)#</loc><lastmod>#dateformat(lastupdate,"yyyy-mm-dd")#</lastmod><changefreq>#sValues.changefrequency#</changefreq><priority>#sValues.priority#</priority></url></cfoutput></cfsavecontent>
 				<cfset strXML = strXML & strXMLBlock />
 			</cfif>
 		</cfloop>
