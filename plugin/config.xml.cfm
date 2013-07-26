@@ -2,6 +2,7 @@
 <name>Google Sitemaps</name>
 <package>MeldGoogleSitemaps</package>
 <directoryFormat>packageOnly</directoryFormat>
+<loadPriority>7</loadPriority>
 <version>2.2.0</version>
 <autoDeploy>true</autoDeploy>
 <siteid>default</siteid>
@@ -9,6 +10,15 @@
 <providerURL>http://www.meldsolutions.com</providerURL>
 <category>Utility</category>
 <settings>
+	<setting>
+		<name>isSlatwallIntegrationActive</name>
+		<label>Enable Google Sitemap integration for Slatwall v3</label>
+		<type>RadioGroup</type>
+		<required>false</required>
+		<optionList>0^1</optionList>
+		<optionLabelList>No^Yes</optionLabelList>
+		<defaultValue>0</defaultValue>
+	</setting>
 </settings>
 <scripts></scripts>
 <eventHandlers>

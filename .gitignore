@@ -1,0 +1,14 @@
+*.project
+*.settings
+*.DS_Store
+*.zip
+*.lic
+*.pfx
+*.svn
+_notes/
+aspnet_client/
+settings.xml
+ehthumbs.db
+thumbs.db
+settings.xml/
+logs/
