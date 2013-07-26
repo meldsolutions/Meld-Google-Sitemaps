@@ -1,4 +1,4 @@
-﻿<!--- 
+﻿<!---
 This file is part of the The Meld Google Sitemaps Plugin.
 
 The Meld Google Sitemaps Plugin is licensed under the GPL 2.0 license
@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="getSitemap" returntype="string" access="public" output="false">
 		<cfargument name="$" type="any" required="true" />
 		<cfargument name="siteID" type="string" required="false" />
-		
+
 		<cfset var useSiteID	= iif( structKeyExists(arguments,"siteID"),de(arguments.siteID),de($.event('siteID')) ) />
 		<cfset var qAtts		= "" />
 		<cfset var qList		= "" />
@@ -148,8 +148,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				)
 			AND
 				tcontent.approved = 1
-			AND	
-				tcontent.active = 1 
+			AND
+				tcontent.active = 1
 			AND
 				(
 				tcontent.display = 1
@@ -165,7 +165,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 					)
 				)
 		</cfquery>
-		
+
 		<cfloop query="qList">
 			<cfset sValues = StructNew() />
 			<cfif len(qList.isExclude)>
@@ -183,7 +183,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				</cfif>
 			<cfelse>
 				<cfset isExempt = getInherit( qAtts,qList,qList.path,exemptHash )>
-			</cfif>		
+			</cfif>
 
 			<cfif isExempt eq true>
 				<!--- skip, do nothing --->
@@ -206,6 +206,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				<cfset strXML = strXML & strXMLBlock />
 			</cfif>
 		</cfloop>
+
+		<cfif getIsSlatwallIntegrationActive()>
+			<cfset verifySlatwallRequest($) />
+
+			<cfsavecontent variable="local.hql">
+				SELECT DISTINCT p.productID FROM SlatwallProduct AS p
+					INNER JOIN p.listingPages
+				WHERE p.activeFlag = :activeFlag
+					AND p.publishedFlag = :publishedFlag
+			</cfsavecontent>
+			<cfset local.productIDs			= ormExecuteQuery(local.hql,{ activeFlag=true,publishedFlag=true }) />
+			<cfset local.productService	= getSlatwallApplication().getBeanFactory().getBean('productService') />
+
+			<cfloop array="#local.productIDs#" index="local.productID">
+				<cfset local.product = local.productService.getProduct(local.productID) />
+
+				<cfif local.product.getAttributeValue('googleSiteMapsExclude') EQ 'no'>
+					<cfset local.productURL = local.product.getAttributeValue('canonicalURL') />
+					<cfif NOT len(local.productURL)>
+						<cfset local.productURL = local.product.getProductURL() />
+					</cfif>
+
+<cfsavecontent variable="strXMLBlock"><cfoutput>
+	<url><loc>http://#$.getBean('settingsManager').getSite(arguments.siteID).getDomain()##$.globalConfig().getContext()##$.getContentRenderer().getURLStem(useSiteID,local.productURL)#</loc><lastmod>#dateformat(local.product.getModifiedDateTime(),"yyyy-mm-dd")#</lastmod><changefreq>#local.product.getAttributeValue('googleSitemapsChangeFrequency')#</changefreq><priority>#local.product.getAttributeValue('googleSitemapsPriority')#</priority></url></cfoutput></cfsavecontent>
+				<cfset strXML = strXML & strXMLBlock />
+				</cfif>
+			</cfloop>
+		</cfif>
 
 		<cfset strXML = strXML & "
 </urlset>" />
@@ -243,13 +271,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfargument name="qList" type="query" required="true" />
 		<cfargument name="contentHistIDList" type="string" required="true" />
 		<cfargument name="exemptHash" type="struct" required="true" />
-		
+
 		<cfset var aIDList		= listToArray( arguments.contentHistIDList ) />
 		<cfset var iiX			= "" />
 		<cfset var qContentID	= "" />
 		<cfset var qStatus		= "" />
 		<cfset var isExempt		= "" />
-		
+
 		<cfloop from="#ArrayLen(aIDList)#" to="1" step="-1" index="iiX">
 			<cfif StructKeyExists( exemptHash,aIDList[iiX] )>
 				<cfset isExempt = exemptHash[ aIDList[iiX] ] />
@@ -294,4 +322,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfreturn false />
 	</cffunction>
 
+	<cffunction name="getIsSlatwallIntegrationActive" returnType="boolean" access="public" output="false">
+		<cfreturn getFramework().getPluginConfig().getSetting('isSlatwallIntegrationActive') AND fileExists(expandPath('/Slatwall/Application.cfc')) />
+	</cffunction>
+
+	<cffunction name="getSlatwallApplication" returnType="any" access="public" output="false" hint="">
+		<cfif NOT structKeyExists(variables,'slatwallApplication')>
+			<cfset variables.slatwallApplication = createObject('Slatwall.Application') />
+		</cfif>
+
+		<cfreturn variables.slatwallApplication />
+	</cffunction>
+
+	<cffunction name="verifySlatwallRequest" returnType="void" access="public" output="false">
+		<cfargument name="$" type="any" required="true" />
+
+		<cfif getIsSlatwallIntegrationActive()>
+			<cfif NOT structKeyExists(request,'slatwallScope')>
+				<cfset getSlatwallApplication().setupGlobalRequest() />
+			</cfif>
+
+			<cfset $.setCustomMuraScopeKey('slatwall',request.slatwallScope) />
+		</cfif>
+	</cffunction>
+
+	<cffunction name="setFramework" returnType="void" access="public" output="false" hint="">
+		<cfargument name="framework" type="any" required="true" />
+
+		<cfset variables.framework = arguments.framework />
+	</cffunction>
+
+	<cffunction name="getFramework" returnType="any" access="public" output="false" hint="">
+		<cfreturn variables.framework />
+	</cffunction>
 </cfcomponent>
