@@ -105,43 +105,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		
 		<cfset variables.pluginConfig.setValue("DefaultProperties",defaultProperties) />
 
-		<!--- build CS factory --->
-		<cfset beanFactory=createObject("component","coldspring.beans.DefaultXmlBeanFactory").init( defaultProperties=defaultProperties ) />
+		<cfset beanFactory=createObject("component","#variables.pluginConfig.getPackage()#.com.org.corfield.ioc").init( "/plugins/#variables.pluginConfig.getDirectory()#/com/meldsolutions",{
+					recurse=true,
+					strict=true,
+					transientPattern = "(Bean)$"
+					} ) />
+					
+		<cfset beanFactory.getBean("MeldGoogleConfig").setValues(defaultProperties) />
 
-		<!--- load beans --->
-		<cfset beanFactory.loadBeansFromXmlRaw( coldspringXml ) />
+		<cfset variables.pluginConfig.getApplication().setValue( "beanFactory", beanFactory ) />
 
 		<!--- set the FW/1 bean factory as our new ColdSpring bean factory --->
 		<cfset setBeanFactory( beanFactory ) />
 
-		<!---
-			NOTE: do not set Mura's service factory as parent to our bean factory, as getBean() will
-			default to Mura's, not ours!
-		--->
-
-		<!--- set the pluginConfig for our plugin into the fw1 application scope --->
-		<cfset setPluginConfig( variables.pluginConfig )>
-
-		<!--- push the ColdSpring factory into plugin application scope --->
-		<cfset variables.pluginConfig.getApplication().setValue( "beanFactory", beanFactory ) />
-
-		<!--- set the main FW/1 bean factory as the parent factory --->
-		<cfset beanFactory.getBean("mmResourceBundle").setParentFactory( $.SiteConfig().getRBFActory() ) />
-
 		<cfif variables.framework.reloadApplicationOnEveryRequest or StructKeyExists(url,variables.framework.reload)>
 			<cfset application[ variables.framework.applicationKey & "BeanFactory" ] = beanFactory>
 		</cfif>
-	</cffunction>
-
-	<cffunction name="setPluginConfig" output="false">
-		<cfargument name="pluginConfig" type="any" required="true">
-		<cflock type="exclusive" timeout="25">
-			<cfset application[ variables.framework.applicationKey ].pluginConfig = arguments.pluginConfig>
-		</cflock>
-	</cffunction>
-
-	<cffunction name="getPluginConfig" output="false">
-		<cfreturn application[ variables.framework.applicationKey ].pluginConfig>
 	</cffunction>
 
 	<cffunction name="onRequestEnd" output="false">

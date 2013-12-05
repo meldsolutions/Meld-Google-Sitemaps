@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="before" access="public" returntype="void" output="false">
 		<cfargument name="rc" type="struct" required="false" default="#StructNew()#">
 
-		<cfset rc.pluginConfig = fw.getPluginConfig() />
+		<cfset rc.pluginConfig = rc.$.getPlugin('MeldGoogleSitemaps') />
 
 		<cfif not structKeyExists(session,"siteid")>
 			<cfset rc.siteID = 'default' />

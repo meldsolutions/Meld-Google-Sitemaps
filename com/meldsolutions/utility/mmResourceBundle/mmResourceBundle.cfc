@@ -21,13 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cfset variables.instance = StructNew()>
 
 	<cffunction name="init" access="public" output="false" returntype="mmResourceBundle">
-		<cfargument name="applicationKey" required="false" default="">
-		<cfargument name="pluginFileRoot" required="false" default="">
-		<cfargument name="rblocale" required="false" default="en">
+		<cfargument name="MeldGoogleConfig" type="any" required="true">
+
+		<cfset variables.MeldGoogleConfig = arguments.MeldGoogleConfig />
 		
-		<cfset setApplicationKey( arguments.applicationKey ) />
-		<cfset setpluginFileRoot( arguments.pluginFileRoot ) />
-		<cfset setBaseRBLocale( arguments.rblocale ) />
+		<cfset structAppend(variables.instance,structCopy(variables.MeldGoogleConfig.getAllValues()),true) />
+		<cfset structAppend(variables,structCopy(variables.MeldGoogleConfig.getAllValues()),true) />
+
+		<cfset setApplicationKey( variables.instance.applicationKey ) />
+		<cfset setpluginFileRoot( variables.instance.pluginFileRoot ) />
+		<cfset setBaseRBLocale( variables.instance.rblocale ) />
 		
 		<cfset variables.rbValid		= false>
 		<cfset variables.sRB			= StructNew() />
@@ -38,9 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			<cfreturn this />
 		</cfif>
 
-		<cfset doConnectBaseResourceBundle() />
-
-		<cfreturn this/>
+		<cfreturn this>
 	</cffunction>
 
 	<cffunction name="key" access="public" returntype="string" output="false">

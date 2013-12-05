@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<!--- headloader for head includes --->
 		<cfset rc.headLoader = ArrayNew(1) />
 		<!--- pluginConfig --->
-		<cfset rc.pluginConfig = fw.getPluginConfig() />
+		<cfset rc.pluginConfig = rc.$.getPlugin('MeldGoogleSitemaps') />
 
 		<cfif not structKeyExists(session,"siteid")>
 			<cflocation url="/#rc.$.globalConfig().getContext()#/admin/index.cfm?fuseaction=cLogin.logout" addtoken="false">

@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cfset variables.instance = StructNew()>
 
 	<cffunction name="init" returntype="MeldGoogleSitemapsManager" access="public" output="false">
-		<cfargument name="dsn" type="string" required="true">
-		<cfargument name="dsnusername" type="string" required="true">
-		<cfargument name="dsnpassword" type="string" required="true">
-		<cfargument name="dsntype" type="string" required="true">
-		<cfset variables.dsn = arguments.dsn>
-		<cfset variables.dsnusername = arguments.dsnusername>
-		<cfset variables.dsnpassword = arguments.dsnpassword>
-		<cfset variables.dsntype = arguments.dsntype>
+		<cfargument name="MeldGoogleConfig" type="any" required="true">
+
+		<cfset variables.MeldGoogleConfig = arguments.MeldGoogleConfig />
+		
+		<cfset structAppend(variables.instance,structCopy(variables.MeldGoogleConfig.getAllValues()),true) />
+		<cfset structAppend(variables,structCopy(variables.MeldGoogleConfig.getAllValues()),true) />
+
 		<cfreturn this>
 	</cffunction>
 
@@ -292,6 +291,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			</cfif>
 		</cfloop>
 		<cfreturn false />
+	</cffunction>
+
+	<cffunction name="setValue" access="public" output="false" returntype="any">
+		<cfargument name="key" type="string" required="true">
+		<cfargument name="value" type="any" required="true">
+		
+		<cfset variables.instance[lcase(arguments.key)] = arguments.value />
+	</cffunction>
+
+
+	<cffunction name="removeValue" access="public" output="false" returntype="any">
+		<cfargument name="key" type="string" required="true">
+		<cfargument name="value" type="any" required="true">
+		
+		<cfset structDelete(variables.instance,arguments.key) />
+	</cffunction>
+
+	<cffunction name="getValue" access="public" output="false" returntype="any">
+		<cfargument name="key" type="string" required="true">
+		
+		<cfif structkeyexists( variables.instance,arguments.key)>
+			<cfreturn variables.instance[arguments.key] />
+		</cfif>
+				
+		<cfreturn "" />
+	</cffunction>
+
+	<cffunction name="setValues" access="public" output="false" returntype="any">
+		<cfargument name="valueStruct" type="struct" required="true">
+		
+		<cfset structAppend(variables.instance,structCopy(arguments.valueStruct),true) />
+		
+		<cfreturn this />
+	</cffunction>
+	
+	<cffunction name="getAllValues" access="public" output="false" returntype="struct">
+		<cfreturn variables.instance />
 	</cffunction>
 
 </cfcomponent>
