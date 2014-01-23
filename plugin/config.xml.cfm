@@ -2,7 +2,7 @@
 <name>Google Sitemaps</name>
 <package>MeldGoogleSitemaps</package>
 <directoryFormat>packageOnly</directoryFormat>
-<version>2.2.0</version>
+<version>3.0.0</version>
 <autoDeploy>true</autoDeploy>
 <siteid>default</siteid>
 <provider>Meld Solutions Inc.</provider>
