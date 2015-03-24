@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				ON
 					tclassextend.subTypeID = tclassextendsets.subTypeID
 				AND
-					tclassextend.subtype = 'default'
+					tclassextend.subtype = 'Default'
 			AND
 				(
 					tclassextend.type = 'Page'
@@ -112,7 +112,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				AND
 					tcontent.type = tclassextend.type
 				AND
-					tclassextend.subtype = 'default'
+					tclassextend.subtype = 'Default'
 			JOIN
 				tclassextendsets
 				ON
