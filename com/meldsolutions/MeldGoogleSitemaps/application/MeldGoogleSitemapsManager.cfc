@@ -56,10 +56,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfset var sitemapXML 	= XmlNew(true)>
 		<cfset var exemptHash	= StructNew()>
 		<cfset var valueHash	= StructNew()>
+		
+		<cfif useSiteID neq arguments.$.event().getValue('siteid')>
+			<cfset arguments.$ = application.serviceFactory.getBean('muraScope').init(useSiteID) />
+		</cfif>
 
 <cfsavecontent variable="strXML"><cfoutput><?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></cfoutput></cfsavecontent>
-
 
 		<cfquery name="qAtts" datasource="#variables.dsn#" username="#variables.dsnusername#" password="#variables.dsnpassword#">
 			SELECT
@@ -201,7 +204,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 			<cfif isExempt neq true>
 <cfsavecontent variable="strXMLBlock"><cfoutput>
-	<url><loc>http://#$.getBean('settingsManager').getSite(arguments.siteID).getDomain()##$.globalConfig().getContext()##$.getContentRenderer().getURLStem(useSiteID,qList.filename)#</loc><lastmod>#dateformat(lastupdate,"yyyy-mm-dd")#</lastmod><changefreq>#sValues.changefrequency#</changefreq><priority>#sValues.priority#</priority></url></cfoutput></cfsavecontent>
+	<url><loc>http://#arguments.$.getBean('settingsManager').getSite(arguments.siteID).getDomain()##arguments.$.globalConfig().getContext()##arguments.$.getContentRenderer().getURLStem(useSiteID,qList.filename)#</loc><lastmod>#dateformat(lastupdate,"yyyy-mm-dd")#</lastmod><changefreq>#sValues.changefrequency#</changefreq><priority>#sValues.priority#</priority></url></cfoutput></cfsavecontent>
 				<cfset strXML = strXML & strXMLBlock />
 			</cfif>
 		</cfloop>
