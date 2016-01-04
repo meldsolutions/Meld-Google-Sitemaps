@@ -1,4 +1,4 @@
-﻿<!--- 
+﻿<!---
 This file is part of the The Meld Google Sitemaps Plugin.
 
 The Meld Google Sitemaps Plugin is licensed under the GPL 2.0 license
@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfargument name="MeldGoogleConfig" type="any" required="true">
 
 		<cfset variables.MeldGoogleConfig = arguments.MeldGoogleConfig />
-		
+
 		<cfset structAppend(variables.instance,structCopy(variables.MeldGoogleConfig.getAllValues()),true) />
 		<cfset structAppend(variables,structCopy(variables.MeldGoogleConfig.getAllValues()),true) />
 
@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="getSitemap" returntype="string" access="public" output="false">
 		<cfargument name="$" type="any" required="true" />
 		<cfargument name="siteID" type="string" required="false" />
-		
+
 		<cfset var useSiteID	= iif( structKeyExists(arguments,"siteID"),de(arguments.siteID),de($.event('siteID')) ) />
 		<cfset var qAtts		= "" />
 		<cfset var qList		= "" />
@@ -56,7 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfset var sitemapXML 	= XmlNew(true)>
 		<cfset var exemptHash	= StructNew()>
 		<cfset var valueHash	= StructNew()>
-		
+		<cfset var siteProtocol = $.getBean('settingsManager').getSite(arguments.siteID).getUseSSL() ? 'https://' : 'http://'>
+
 		<cfif useSiteID neq arguments.$.event().getValue('siteid')>
 			<cfset arguments.$ = application.serviceFactory.getBean('muraScope').init(useSiteID) />
 		</cfif>
@@ -150,8 +151,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				)
 			AND
 				tcontent.approved = 1
-			AND	
-				tcontent.active = 1 
+			AND
+				tcontent.active = 1
 			AND
 				(
 				tcontent.display = 1
@@ -167,7 +168,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 					)
 				)
 		</cfquery>
-		
+
 		<cfloop query="qList">
 			<cfset sValues = StructNew() />
 			<cfif len(qList.isExclude)>
@@ -185,7 +186,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				</cfif>
 			<cfelse>
 				<cfset isExempt = getInherit( qAtts,qList,qList.path,exemptHash )>
-			</cfif>		
+			</cfif>
 
 			<cfif isExempt eq true>
 				<!--- skip, do nothing --->
@@ -204,7 +205,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 			<cfif isExempt neq true>
 <cfsavecontent variable="strXMLBlock"><cfoutput>
-	<url><loc>http://#arguments.$.getBean('settingsManager').getSite(arguments.siteID).getDomain()##arguments.$.globalConfig().getContext()##arguments.$.getContentRenderer().getURLStem(useSiteID,qList.filename)#</loc><lastmod>#dateformat(lastupdate,"yyyy-mm-dd")#</lastmod><changefreq>#sValues.changefrequency#</changefreq><priority>#sValues.priority#</priority></url></cfoutput></cfsavecontent>
+	<url><loc>#siteProtocol##arguments.$.getBean('settingsManager').getSite(arguments.siteID).getDomain()##arguments.$.globalConfig().getContext()##arguments.$.getContentRenderer().getURLStem(useSiteID,qList.filename)#</loc><lastmod>#dateformat(lastupdate,"yyyy-mm-dd")#</lastmod><changefreq>#sValues.changefrequency#</changefreq><priority>#sValues.priority#</priority></url></cfoutput></cfsavecontent>
 				<cfset strXML = strXML & strXMLBlock />
 			</cfif>
 		</cfloop>
@@ -245,13 +246,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfargument name="qList" type="query" required="true" />
 		<cfargument name="contentHistIDList" type="string" required="true" />
 		<cfargument name="exemptHash" type="struct" required="true" />
-		
+
 		<cfset var aIDList		= listToArray( arguments.contentHistIDList ) />
 		<cfset var iiX			= "" />
 		<cfset var qContentID	= "" />
 		<cfset var qStatus		= "" />
 		<cfset var isExempt		= "" />
-		
+
 		<cfloop from="#ArrayLen(aIDList)#" to="1" step="-1" index="iiX">
 			<cfif StructKeyExists( exemptHash,aIDList[iiX] )>
 				<cfset isExempt = exemptHash[ aIDList[iiX] ] />
@@ -299,7 +300,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="setValue" access="public" output="false" returntype="any">
 		<cfargument name="key" type="string" required="true">
 		<cfargument name="value" type="any" required="true">
-		
+
 		<cfset variables.instance[lcase(arguments.key)] = arguments.value />
 	</cffunction>
 
@@ -307,28 +308,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="removeValue" access="public" output="false" returntype="any">
 		<cfargument name="key" type="string" required="true">
 		<cfargument name="value" type="any" required="true">
-		
+
 		<cfset structDelete(variables.instance,arguments.key) />
 	</cffunction>
 
 	<cffunction name="getValue" access="public" output="false" returntype="any">
 		<cfargument name="key" type="string" required="true">
-		
+
 		<cfif structkeyexists( variables.instance,arguments.key)>
 			<cfreturn variables.instance[arguments.key] />
 		</cfif>
-				
+
 		<cfreturn "" />
 	</cffunction>
 
 	<cffunction name="setValues" access="public" output="false" returntype="any">
 		<cfargument name="valueStruct" type="struct" required="true">
-		
+
 		<cfset structAppend(variables.instance,structCopy(arguments.valueStruct),true) />
-		
+
 		<cfreturn this />
 	</cffunction>
-	
+
 	<cffunction name="getAllValues" access="public" output="false" returntype="struct">
 		<cfreturn variables.instance />
 	</cffunction>
