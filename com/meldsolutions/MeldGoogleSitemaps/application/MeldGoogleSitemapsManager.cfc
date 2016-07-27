@@ -106,7 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 		<cfquery name="qList" datasource="#variables.dsn#" username="#variables.dsnusername#" password="#variables.dsnpassword#">
 			SELECT
-				tcontent.contentID,tcontent.contentHistID,tcontent.filename,tcontent.lastupdate,tcontent.lastupdate,attributeValue AS isExclude,tcontent.path
+				tcontent.contentID,tcontent.contentHistID,tcontent.filename,tcontent.lastupdate,attributeValue AS isExclude,tcontent.path
 			FROM
 				tcontent
 			JOIN
