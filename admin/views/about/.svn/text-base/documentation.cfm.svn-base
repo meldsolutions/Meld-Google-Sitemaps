@@ -1,9 +1,0 @@
-<!---
-||MELDGALLERYLICENSE||
---->
-<cfoutput>
-<div id="meld-body">
-	<h3>Meld Gallery Documentation</h3>
-	<p>Documentation for the plugin can be found at <a href="http://www.meldsolutions.com/go/products/meld-gallery/documentation/">http://www.meldsolutions.com/</a>.</p>
-</div>
-</cfoutput>
