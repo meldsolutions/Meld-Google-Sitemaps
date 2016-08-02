@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfargument name="state">
 		<cfargument name="restore">
 		<cfset var preserveKeyList="context,base,cfcbase,subsystem,subsystembase,section,item,services,action,controllerExecutionStarted">
+		<cfset var k="" />
 		
 		<cfloop list="#preserveKeyList#" index="k">
 				<cfset structDelete(arguments.state,k)>
