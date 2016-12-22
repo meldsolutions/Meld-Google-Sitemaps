@@ -1,8 +1,8 @@
 <!---
-This file is part of the The Mura Google News Sitemaps Plugin.
+This file is part of the The Meld Google Sitemaps Plugin.
 
-The Mura Google News Sitemaps Plugin is licensed under the GPL 2.0 license
-Copyright (C) 2016 Nolan Erck (http://www.southofshasta.com/) and Meld Solutions Inc. http://www.meldsolutions.com/
+The Meld Google Sitemaps Plugin is licensed under the GPL 2.0 license
+Copyright (C) 2010 Meld Solutions Inc. http://www.meldsolutions.com/
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -49,12 +49,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="doUpdateSettings" access="private" returntype="boolean" output="false">
 		<cfargument name="rc" type="struct" required="false" default="#StructNew()#">
 
-		<cfset var sitemapsObject		= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleNewsSitemaps",SiteID=rc.siteID)>
+		<cfset var sitemapsObject		= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleSitemaps",SiteID=rc.siteID)>
 		<cfset var processURL			= "http://#rc.$.siteConfig('domain')##rc.$.globalConfig('context')#/plugins/#rc.pluginConfig.getDirectory()#/?action=process:&site=#rc.siteID#" />
 		<cfset var timeOfDay			= createDateTime(2011,1,1,#rc.timeofday_hour#,#rc.timeofday_minute#,0) />
 
 		<cfset sitemapsObject.setType("Custom")>
-		<cfset sitemapsObject.setSubType("MeldGoogleNewsSitemaps")>
+		<cfset sitemapsObject.setSubType("MeldGoogleSitemaps")>
 		<cfset sitemapsObject.setSiteID(rc.siteID)>	
 		<cfset sitemapsObject.setID( rc.siteID ) />
 		<cfset sitemapsObject.getAllValues() />
@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfif rc.enabled>
 			<cfschedule
 				action="update"
-				task="Mura Google News Sitemaps #rc.$.siteConfig('domain')# - #rc.siteID#"
+				task="Meld Google Sitemaps #rc.$.siteConfig('domain')# - #rc.siteID#"
 				interval="#rc.frequency#"
 				url="#processURL#"
 				operation="HTTPRequest"
@@ -83,7 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfelse>
 			<cfschedule
 				action="delete"
-				task="Mura Google News Sitemaps #rc.$.siteConfig('domain')# - #rc.siteID#">
+				task="Meld Google Sitemaps #rc.$.siteConfig('domain')# - #rc.siteID#">
 		</cfif>
 
 		<cfreturn true />
@@ -92,11 +92,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="doGetSettings" access="private" returntype="void" output="false">
 		<cfargument name="rc" type="struct" required="false" default="#StructNew()#">
 
-		<cfset var sitemapsObject	= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleNewsSitemaps",SiteID=rc.siteID)>
+		<cfset var sitemapsObject	= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleSitemaps",SiteID=rc.siteID)>
 		<cfset var iiX = "" />
 
 		<cfset sitemapsObject.setType("Custom")>
-		<cfset sitemapsObject.setSubType("MeldGoogleNewsSitemaps")>
+		<cfset sitemapsObject.setSubType("MeldGoogleSitemaps")>
 		<cfset sitemapsObject.setSiteID(rc.siteID)>
 
 		<cfset sitemapsObject.setID( rc.siteID ) />
