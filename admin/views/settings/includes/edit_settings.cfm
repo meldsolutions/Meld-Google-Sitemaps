@@ -27,36 +27,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cfset local.timeofday_minute	= datepart("n", local.timeofday ) />
 </cfsilent>
 <cfoutput>
-	<ul class="form">
-	<li class="first">
-		<label for="enabled">
-			<input type="checkbox" name="enabled" id="enabled" value="1" <cfif form.enabled>CHECKED</cfif>/>
-			#rc.mmRBF.key('sitemapenabled')#
-		</label>
-	</li>
-	<li>
-		<label for="location">
-			#rc.mmRBF.key('location')#<a href="##" class="tooltip"><span>#rc.mmRBF.key('location','tip')#</span>&nbsp;</a>
+	<div class="mura-control-group">
+		<label>#rc.mmRBF.key('sitemapenabled')#</label>
+		<input type="checkbox" name="enabled" id="enabled" value="1" <cfif form.enabled>CHECKED</cfif>>
+	</div>
+	<div class="mura-control-group">
+		<label>
+			<span data-toggle="popover" title="" data-placement="right"
+			data-content="#rc.mmRBF.key('location','tip')#"
+			data-original-title="#rc.mmRBF.key('location')#">
+			  #rc.mmRBF.key('location')# <i class="mi-question-circle"></i>
+			</span>
 		</label>
 		<select class="select" name="location" id="location">
 			<cfloop list="site,web" index="local.x">
 			<option value="#local.x#" <cfif local.x eq form.location>SELECTED</cfif>>#rc.mmRBF.key('#local.x#_location')#</option>
 			</cfloop>
 		</select>
-	</li>
-	<li>
-		<label for="frequency">
-			#rc.mmRBF.key('frequency')#<a href="##" class="tooltip"><span>#rc.mmRBF.key('frequency','tip')#</span>&nbsp;</a>
+	</div>
+	<div class="mura-control-group">
+		<label>
+			<span data-toggle="popover" title="" data-placement="right"
+			data-content="#rc.mmRBF.key('frequency','tip')#"
+			data-original-title="#rc.mmRBF.key('frequency')#">
+			  #rc.mmRBF.key('frequency')# <i class="mi-question-circle"></i>
+			</span>
 		</label>
 		<select class="select" name="frequency" id="frequency">
 			<cfloop list="Daily,Weekly,Monthly" index="local.x">
 			<option value="#local.x#" <cfif local.x eq form.frequency>SELECTED</cfif>>#local.x#</option>
 			</cfloop>
 		</select>
-	</li>
-	<li>
-		<label for="frequency">
-			#rc.mmRBF.key('timeofday')#<a href="##" class="tooltip"><span>#rc.mmRBF.key('timeofday','tip')#</span>&nbsp;</a>
+	</div>
+	<div class="mura-control-group">
+		<label>
+			<span data-toggle="popover" title="" data-placement="right"
+			data-content="#rc.mmRBF.key('timeofday','tip')#"
+			data-original-title="#rc.mmRBF.key('timeofday')#">
+			  #rc.mmRBF.key('timeofday')# <i class="mi-question-circle"></i>
+			</span>
 		</label>
 		<select class="select" name="timeofday_hour" id="timeofday_hour">
 			<cfloop from="0" to="23" index="local.x">
@@ -68,13 +77,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			<option value="#local.x#" <cfif local.x eq local.timeofday_minute>SELECTED</cfif>>#local.x#</option>
 			</cfloop>
 		</select>
-	</li>
-	<li>
-		<label for="email">
-			#rc.mmRBF.key('emailnotifications')#<a href="##" class="tooltip"><span>#rc.mmRBF.key('emailnotifications','tip')#</span>&nbsp;</a>
+	</div>
+	<div class="mura-control-group">
+		<label>
+			<span data-toggle="popover" title="" data-placement="right"
+			data-content="#rc.mmRBF.key('emailnotifications','tip')#"
+			data-original-title="#rc.mmRBF.key('emailnotifications')#">
+			  #rc.mmRBF.key('emailnotifications')# <i class="mi-question-circle"></i>
+			</span>
 		</label>
-		<input class="text" type="text" name="email" id="email" value="#form.email#" size="150" maxlength="150" data-required="false"/>
-		<p><small>#rc.mmRBF.key('emailnotifications','note')#</small></p>
-	</li>
-	</ul>
+		<input type="text" name="email" value="#form.email#" >
+	</div>
 </cfoutput>

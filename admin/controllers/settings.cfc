@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="edit" access="public" returntype="void" output="false">
 		<cfargument name="rc" type="struct" required="false" default="#StructNew()#">
 
-
 		<cfif isDefined("rc.btaction")>
 			<!--- cancel? --->
 			<cfif arguments.rc.btaction eq rc.mmRBF.key('cancel')>

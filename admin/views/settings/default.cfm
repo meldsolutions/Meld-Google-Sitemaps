@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <cfsilent>
 	<!--- headers --->
 	<cfset local.timeofday			= rc.sitemapsObject.getExtendedData().getAttribute('timeofday',true,'object')>
-</cfsilent><cfoutput>
+</cfsilent>
+<cfoutput>
 <!--- global menu --->
 <!--- begin content --->
-<div id="meld-body">
 	<!-- CONTENT HERE -->
 	<div id="meld-actions" class="section clearfix">
 		#view("settings/includes/default_actions")#
@@ -39,6 +39,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			<strong>#rc.mmRBF.key('emailnotifications')#:</strong> <cfif len(rc.sData.email)>#rc.sData.email#</cfif>
 		</li>
 	</ul>
-</div>	
 <!--- end content --->
 </cfoutput> 

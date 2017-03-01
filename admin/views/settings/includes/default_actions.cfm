@@ -19,10 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 --->
 <cfsilent>
 	<cfset local.rc = rc>
-</cfsilent><cfoutput>
-<ul class="meld-nav-secondary">
-	<li>
-		<a href="?action=admin:settings.edit" title="#rc.mmRBF.key('editsettings')#">#rc.mmRBF.key('editsettings')#</a>				
-	</li>
-</ul>
+</cfsilent>
+<cfoutput>
+<a class="btn" href="?action=admin:settings.edit" title="#rc.mmRBF.key('editsettings')#">#rc.mmRBF.key('editsettings')#</a>
 </cfoutput>
