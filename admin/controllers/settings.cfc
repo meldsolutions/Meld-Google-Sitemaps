@@ -91,6 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<cffunction name="doGetSettings" access="private" returntype="void" output="false">
 		<cfargument name="rc" type="struct" required="false" default="#StructNew()#">
 
+		<cfset var iiX = "" />
 		<cfset var sitemapsObject	= createObject("component","mura.extend.extendObject").init(Type="Custom",SubType="MeldGoogleSitemaps",SiteID=rc.siteID)>
 
 		<cfset sitemapsObject.setType("Custom")>
