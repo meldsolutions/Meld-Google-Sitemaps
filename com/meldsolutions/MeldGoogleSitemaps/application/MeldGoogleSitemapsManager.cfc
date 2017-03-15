@@ -223,7 +223,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<cfset var qValues	= "" />
 		<cfset var sValues	= StructNew() />
 
-		<cfquery name="qStatus" dbtype="query">
+		<cfquery name="qValues" dbtype="query">
 			SELECT
 				attributeValue,name
 			FROM
@@ -232,9 +232,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				baseID = <cfqueryparam value="#arguments.contentHistID#" cfsqltype="cf_sql_varchar" maxlength="35">
 		</cfquery>
 
-		<cfif qStatus.RecordCount>
-			<cfloop query="qStatus">
-				<cfset sValues[qStatus.name] = qStatus.attributeValue />
+		<cfif qValues.RecordCount>
+			<cfloop query="qValues">
+				<cfset sValues[qValues.name] = qValues.attributeValue />
 			</cfloop>
 		</cfif>
 
