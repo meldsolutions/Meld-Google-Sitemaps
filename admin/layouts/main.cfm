@@ -22,23 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 --->
 <cfsilent>
 	<!--- headers --->
-</cfsilent><cfoutput>
-<div id="meld-plugin">
-	<div id="meld-content">
-		<div id="meld-bc" class="clearfix">
-			<h3>#rc.pluginConfig.getName()#</h3>
-		</div>
-		<div id="meld-logo" class="clearfix">
-			<a href="http://www.meldsolutions.com" target="_new"></a>
-		</div>
-		<div id="meld-nav" class="clearfix">
-			#view("/global/menu")#
-		</div>
-		<cfif ArrayLen( rc.errors )>
-			#view("/global/errors")#
-		</cfif>
-		<!--- error template --->
-		#body#
-	</div>
+</cfsilent>
+<cfoutput>
+<div class="mura-header">
+	<h1>#rc.pluginConfig.getName()#</h1>
+	#view("/global/menu")#
+</div>
+<div id="meld-logo" class="clearfix">
+	<a href="http://www.meldsolutions.com" target="_new"></a>
+</div>
+<cfif ArrayLen( rc.errors )>
+	#view("/global/errors")#
+</cfif>
+<div class="block block-constrain">
+  <div class="block block-bordered">
+   <div class="block-content">
+   #body#
+   </div>
+  </div>
 </div>
 </cfoutput>
