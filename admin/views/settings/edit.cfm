@@ -21,27 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<!--- headers --->
 	<cfoutput>
 	</cfoutput>
-</cfsilent><cfoutput>
+</cfsilent>
+<cfoutput>
 <!--- global menu --->
 <!--- begin content --->
-<div id="meld-body">
-	<!-- CONTENT HERE -->
-	<h3>#rc.mmRBF.key('editsettings')#</h3>
+<h3>#rc.mmRBF.key('editsettings')#</h3>
 
 <form id="meld-edit-form" class="meld-form" method="post" action="index.cfm" onsubmit="return validate(this);" enctype="multipart/form-data">
 	<input type="hidden" name="action" value="admin:settings.edit">
-	<div>
-		#view("settings/includes/edit_settings")#
+	#view("settings/includes/edit_settings")#
+	<div class="mura-actions">
+		<div class="form-actions">
+			<button type="button" name="btaction" value="#rc.mmRBF.key('cancel')#" class="btn" id="btcancel"><i class="mi-trash"></i>#rc.mmRBF.key('cancel')#</button>
+			<button type="submit" name="btaction" value="#rc.mmRBF.key('update')#" class="btn mura-primary" id="btupdate"><i class="mi-check-circle"></i>#rc.mmRBF.key('update')#</button>
+		</div>
 	</div>
-	<div>
-		<ul class="form-buttons">
-			<li><input name="btaction" id="btcancel" type="submit" class="submit ui-state-default" value="#rc.mmRBF.key('cancel')#"></li>
-			<li><input name="btaction" id="btupdate" type="submit" class="submit ui-state-default" value="#rc.mmRBF.key('update')#"></li>
-		</ul>
-	</div>
-</div>	
 </form>		
-</div>	
 
 
 <!--- end content --->
